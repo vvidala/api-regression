@@ -26,7 +26,7 @@ var specs = [
 	,{
 		name: "Missing first name",
 		gc:{
-			"omit" :["firstname"]
+			"omit" :["firstName"]
 		},
 		result: {
 			"errors": ["First Name is a required field."]

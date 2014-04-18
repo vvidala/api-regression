@@ -48,29 +48,41 @@ describe('Guestcard Tests: ', function () {
 
 
 function testErrors(errors, exepectations) {
-	if(!util.isArray(errors))
-		errors = [errors];
-	if(!util.isArray(exepectations))
-		exepectations = [exepectations];
+	try{
+		assert.ok(errors, "Errors node is empty");
+		if(!util.isArray(errors))
+			errors = [errors];
+		if(!util.isArray(exepectations))
+			exepectations = [exepectations];
 
-	errors.length.should.equal(exepectations.length);
-	_.each(errors, function(err){
-		exepectations.indexOf(err.error.message).should.be.greaterThan(-1);
-	});
+		errors.length.should.equal(exepectations.length);
+		_.each(errors, function(err){
+			exepectations.indexOf(err.error.message).should.be.greaterThan(-1);
+		});
+	}
+	catch(e) {
+		assert.fail(errors, exepectations,undefined, "!==");
+	}
+	
 }
 
 function testMessages(messages, exepectations) {
-	if(!util.isArray(messages))
-		messages = [messages];
-	if(!util.isArray(exepectations))
-		exepectations = [exepectations];
+	try{
+		assert.ok(messages, "Messages node is empty");
+		if(!util.isArray(messages))
+			messages = [messages];
+		if(!util.isArray(exepectations))
+			exepectations = [exepectations];
 
-	messages.length.should.equal(exepectations.length);
-	//console.log(messages);
-	//console.log(exepectations);
-	_.each(messages, function(msg){
-		exepectations.indexOf(msg.note._).should.be.greaterThan(-1);
-	});
+		messages.length.should.equal(exepectations.length);
+		_.each(messages, function(msg){
+			exepectations.indexOf(msg.note._).should.be.greaterThan(-1);
+		});
+	}
+	catch(e) {
+		assert.fail(messages, exepectations, undefined, "!==");
+	}
+	
 }
 
 	
