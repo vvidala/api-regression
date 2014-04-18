@@ -1,0 +1,30 @@
+{
+  "name": "api-regression",
+  "version": "0.0.1",
+  "description": "Automated regression testing for ForRent.Com Rest APIs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "api",
+    "automation",
+    "jenkins",
+    "testing",
+    "rest",
+    "forrent"
+  ],
+  "author": "Vamsi Vidala <vamsi.vidala@forrent.com>",
+  "license": "MIT",
+  "dependencies": {
+    "mocha": "^1.18.2",
+    "moment": "^2.6.0",
+    "request-mocha": "^0.2.0",
+    "request": "^2.34.0",
+    "should": "^3.3.1",
+    "assert": "^1.1.1",
+    "underscore": "^1.6.0",
+    "xml2json": "^0.4.0",
+    "xml2js": "^0.4.2"
+  }
+}
