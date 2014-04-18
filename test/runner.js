@@ -6,26 +6,6 @@ var request = require('request'),
 	Specs = require('../specs/guestcard.js'),
 	util = require('util');
 
-/*
-describe('A server receiving a request', function () {
-  //before(startServer);
-
-  	// Make request and save results to `this.err`, `this.res`, and `this.body`
-  	httpUtils.save({
-	    url: 'https://api.github.com/repos/mikeal/request',
-	    headers: {
-	        'User-Agent': 'request'
-	    }
-	});
-
-  // Assert against mocha's `this` context
-  it('responded with "Hello World!"', function () {
-    assert.equal(this.err, null);
-    this.res.statusCode.should.equal(200);
-    console.log(this.body);
-  });
-});
-*/
 describe('Guestcard Tests: ', function () {
 	_.each(Specs, function(spec){
 		it(spec.name, function (done) {
