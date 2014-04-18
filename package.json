@@ -4,7 +4,7 @@
   "description": "Automated regression testing for ForRent.Com Rest APIs.",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha -R spec"
+    "test": "./node_modules/.bin/mocha --recursive -R xunit test/ > test-report.xml"
   },
   "keywords": [
     "api",
