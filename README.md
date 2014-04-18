@@ -18,11 +18,13 @@ npm test
 ```
 make test
 ```
-To specify the baseurl of the test environment:
-In CLI Mode:
+
+#####To specify the baseurl of the test environment:
+
+######In CLI Mode:
 ```
 env BASEURL=http://localhost:4000 npm test
 ```
 
-In Jenkins CI:
+######In Jenkins CI:
 Set environment variable `BASEURL` under `Manage Jenkins > Configure System > Global properties > Environment Variables`
