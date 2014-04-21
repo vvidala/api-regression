@@ -7,4 +7,3 @@ var env = process.env,
 
 if(env.BASEURL) config.baseUrl = env.BASEURL;
 module.exports = config;
-//console.log("Running tests against: "+config.baseUrl);

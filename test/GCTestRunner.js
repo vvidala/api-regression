@@ -3,29 +3,42 @@ var request = require('request'),
 	_ = require('underscore'),
 	assert = require('assert'),
 	GuestcardService = require('../models/GuestcardRequest'),
-	Specs = require('../specs/guestcard.js'),
-	util = require('util');
+	//Specs = require('../specs/guestcard.js'),
+	util = require('util'),
+	fs = require('fs'),
+	path = require('path'),
+	basePath = path.dirname(__dirname),
+	specsDir = path.resolve(basePath, 'specs/Guestcard');
 
-describe('Guestcard Tests: ', function () {
-	_.each(Specs, function(spec){
-		it(spec.name, function (done) {
-			GuestcardService(spec.gc, function (err, res, body) {
-				assert.equal(err, null);
-	    		res.statusCode.should.equal(200);
-	    		
-	    		if(spec.result && spec.result.errors)
-	    			testErrors(body.response.command.errors, spec.result.errors);
-	    		if(spec.result && spec.result.messages){
-	    			//console.log(body.response.command);
-	    			testMessages(body.response.command.messages, spec.result.messages);	
-	    		}
-	    		
-				done();
+var files = fs.readdirSync(specsDir);
+_.each(files, function(file){
+	var specs = require(path.resolve(specsDir, file));
+	describe('Guestcard '+file.slice(0, -3)+': ', function () {
+		_.each(specs, function(spec){
+			it(spec.name, function (done) {
+				GuestcardService(spec.gc, function (err, res, body) {
+					assert.equal(err, null);
+		    		res.statusCode.should.equal(200);
+		    		
+		    		if(spec.result && spec.result.errors)
+		    			testErrors(body.response.command.errors, spec.result.errors);
+		    		if(spec.result && spec.result.messages){
+		    			//console.log(body.response.command);
+		    			testMessages(body.response.command.messages, spec.result.messages);	
+		    		}
+		    		
+					done();
+				});
 			});
 		});
 	});
-});
+})	
 
+
+
+/*
+
+*/
 
 function testErrors(errors, exepectations) {
 	try{
