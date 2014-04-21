@@ -1,7 +1,7 @@
 
 var env = process.env,
 	config = {
-		baseUrl: 'http://forrent.vvidala.frlabs.com',
+		baseUrl: 'http://helium.forrent.com',
 		externalGCEndpoint : '/external/guestcard/submit.php'
 	};
 
