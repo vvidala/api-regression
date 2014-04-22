@@ -29,20 +29,41 @@ var specs = [
 			"omit" :["firstName"]
 		},
 		result: {
-			"errors": ["First Name is a required field."]
+			"errors": ['First Name is a required field.']
+		}
+	},
+	{
+		name : "First name too short",
+		gc:{
+			"update" :{
+				"firstName": ""
+			}
+		},
+		result: {
+			"errors": ['First Name is a required field.']
+		}
+	}
+	,{
+	name : "First name too long",
+		gc:{
+			"update" :{
+				"firstName": "Abcdefghijklmnopqrstuvadfasdfasdflkjasdlkjasdlfkjlkawxyzabcdefghijk"
+			}
+		},
+		result :{
+			"messages" :["First Name falls outside the allowed range (2-30 characters)."]
 		}
 	}
 	//ByEmail Tests
 	,{
-		name: "Missing first name",
+		name: "Incorrect email",
 		gc:{
 			"update" :{
 				"byEmail": 2
 			}
 		},
 		result: {
-			"messages": ["Incorrect format for Email preference, should be 0/1. Please see FRMS documentation for data types and format."
-			]
+			"messages": ["Incorrect format for Email preference, should be 0/1. Please see FRMS documentation for data types and format."]
 		}
 	}
 ];
