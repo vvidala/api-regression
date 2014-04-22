@@ -1,4 +1,4 @@
-var specs = [
+	var specs = [
 	//Site Id tests
 	{
 		name: "Passing Test"
@@ -66,6 +66,20 @@ var specs = [
 			"messages": ["Incorrect format for Email preference, should be 0/1. Please see FRMS documentation for data types and format."]
 		}
 	}
+	,{
+		name: "Incorrect username",
+		gc:{
+			"update" :{
+				"username": 2,
+				"password": 2
+			}
+		},
+		result: {
+			"errors": ["Login Failed due to invalid 'username or password'. Please try again."
+			]
+		}
+	}
 ];
+
 
 module.exports = specs;
