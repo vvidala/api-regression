@@ -25,7 +25,6 @@ _.each(files, function(file){
 		    		if(spec.result && spec.result.errors)
 		    			testErrors(body.response, spec.result.errors);
 		    		if(spec.result && spec.result.messages){
-		    			//console.log(body.response.command);
 		    			testMessages(body.response, spec.result.messages);	
 		    		}
 					done();
@@ -66,17 +65,26 @@ function testErrors(response, exepectations) {
 
 function testMessages(response, exepectations) {
 	
-	var msgs = new sets.Set();
+	var messages = response.command.messages;
+		msgs = new sets.Set();
 	try{
 		//Extract errors from the response
-		_.each(response.command.messages, function(msg) {
-			msgs.add(msg._);
-		});
+		if(util.isArray(messages.note)) {
+			_.each(messages.note, function(msg) {
+				msgs.add(msg._);
+			});
+		}
+		else {
+			_.each(messages, function(msg) {
+				msgs.add(msg._);
+			});
+		}
+		
 	
 		msgs.equals(new sets.Set(exepectations)).should.be.true;
 	}
 	catch(e) {
-		assert.fail(msgs.array(), exepectations,undefined, "!==");
+		assert.fail(msgs.array(), exepectations,undefined, "===");
 	}
 }
 
