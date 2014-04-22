@@ -7,6 +7,7 @@ var request = require('request'),
 	util = require('util'),
 	fs = require('fs'),
 	path = require('path'),
+	sets = require('simplesets'),
 	basePath = path.dirname(__dirname),
 	specsDir = path.resolve(basePath, 'specs/Guestcard');
 
@@ -19,14 +20,14 @@ _.each(files, function(file){
 				GuestcardService(spec.gc, function (err, res, body) {
 					assert.equal(err, null);
 		    		res.statusCode.should.equal(200);
-		    		
+		    		//console.dir(body.response.command);
+		    		testSuccess(body.response, spec);
 		    		if(spec.result && spec.result.errors)
-		    			testErrors(body.response.command.errors, spec.result.errors);
+		    			testErrors(body.response, spec.result.errors);
 		    		if(spec.result && spec.result.messages){
 		    			//console.log(body.response.command);
-		    			testMessages(body.response.command.messages, spec.result.messages);	
+		    			testMessages(body.response, spec.result.messages);	
 		    		}
-		    		
 					done();
 				});
 			});
@@ -34,48 +35,49 @@ _.each(files, function(file){
 	});
 })	
 
-
-
-/*
-
-*/
-
-function testErrors(errors, exepectations) {
+function testSuccess(response, spec) {
+	var expectedSuccess = 'true';
+	if(spec.result && spec.result.errors){
+		expectedSuccess = 'false';
+	}
 	try{
-		assert.ok(errors, "Errors node is empty");
-		if(!util.isArray(errors))
-			errors = [errors];
-		if(!util.isArray(exepectations))
-			exepectations = [exepectations];
-
-		errors.length.should.equal(exepectations.length);
-		_.each(errors, function(err){
-			exepectations.indexOf(err.error.message).should.be.greaterThan(-1);
-		});
+		response.command._success.should.equal(expectedSuccess);
 	}
 	catch(e) {
-		assert.fail(errors, exepectations,undefined, "!==");
+		assert.fail(response, spec.result,undefined, "!~");
+	}
+}
+
+function testErrors(response, exepectations) {
+	var errs = new sets.Set();
+	try{
+		//Extract errors from the response
+		_.each(response.command.errors, function(err) {
+			errs.add(err.message);
+		});
+	
+		errs.equals(new sets.Set(exepectations)).should.be.true;
+	}
+	catch(e) {
+		assert.fail(errs.array(), exepectations,undefined, "!==");
 	}
 	
 }
 
-function testMessages(messages, exepectations) {
+function testMessages(response, exepectations) {
+	
+	var msgs = new sets.Set();
 	try{
-		assert.ok(messages, "Messages node is empty");
-		if(!util.isArray(messages))
-			messages = [messages];
-		if(!util.isArray(exepectations))
-			exepectations = [exepectations];
-
-		messages.length.should.equal(exepectations.length);
-		_.each(messages, function(msg){
-			exepectations.indexOf(msg.note._).should.be.greaterThan(-1);
+		//Extract errors from the response
+		_.each(response.command.messages, function(msg) {
+			msgs.add(msg._);
 		});
+	
+		msgs.equals(new sets.Set(exepectations)).should.be.true;
 	}
 	catch(e) {
-		assert.fail(messages, exepectations, undefined, "!==");
+		assert.fail(msgs.array(), exepectations,undefined, "!==");
 	}
-	
 }
 
 	
