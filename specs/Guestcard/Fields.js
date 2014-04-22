@@ -171,6 +171,7 @@
 		result:{
 			"messages":["Incorrect Date format for Move Date. Please format dates as follows:  yyyy-mm-dd."]
 		}
+	}
 
 	//Email Address Tests
 	,{
