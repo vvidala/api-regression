@@ -54,8 +54,30 @@
 			}
 		},
 		result: {
-			"errors": ["Login Failed due to invalid 'username or password'. Please try again."
+			"errors": ['Login Failed due to invalid \"username or password\". Please try again.'
 			]
+		}
+	}
+	//Email Address Tests
+	,{
+		name: "Missing Email",
+		gc:{
+			"omit" : ["emailAddress"]
+			
+		},
+		result: {
+			"errors": ['Email address is a required field.']
+		}
+	}
+	,{
+		name: "Incorrect email format",
+		gc:{
+			"update" :{
+				"emailAddress": "founda.problem@@gmail.com"
+			}
+		},
+		result: {
+			"errors": ["Email address format is invalid."]
 		}
 	}
 ];
