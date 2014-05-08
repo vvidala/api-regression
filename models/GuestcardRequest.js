@@ -14,9 +14,7 @@ module.exports = function(gc, _cb) {
 	};
 	//console.log(opts.form);
 	request(opts, function(err, res, body){
-		//console.log(body);
 		parser(body, {attrNameProcessors: [addUnderscore], mergeAttrs: true, explicitArray: false}, function (err, result) {
-		    //console.log(result);
 		    _cb(err, res, result);
 		});
 		//_cb(err, res, JSON.parse(parser.toJson(body)));
